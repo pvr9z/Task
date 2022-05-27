@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="quote"
+            type="com.example.task.models.QuoteResult" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAuthorTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author :"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Author"
+        android:text="@{quote.author}"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:paddingStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvAuthorTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvAuthorTitle"
+        app:layout_constraintStart_toEndOf="@id/tvAuthorTitle"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Content :"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@id/tvAuthorTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvAuthorTitle"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="description"
+        android:text="@{quote.content}"
+        android:paddingStart="8dp"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/tvContentTitle"
+        app:layout_constraintTop_toTopOf="@id/tvContentTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
