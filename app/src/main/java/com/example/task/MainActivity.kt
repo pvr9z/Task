@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.quotes.observe(this) {
             it?.let {
-                Log.d("WorkerObserving", "Running..")
+                Log.d("Observing", "Running..")
                 adapter.submitList(it.results)
             }
         }

@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.example.task.api.QuoteService
 import com.example.task.models.QuoteList
 import com.example.task.utils.NetworkUtils
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class QuoteRepository(
     private val quoteService: QuoteService,
@@ -15,12 +18,14 @@ class QuoteRepository(
     private val quotesLiveData = MutableLiveData<QuoteList>()
 
     val quotes: LiveData<QuoteList>
-    get() = quotesLiveData
+        get() = quotesLiveData
 
-    suspend fun getQuotes(page: Int) {
-        if(NetworkUtils.isInternetAvailable(applicationContext)){
-            val result = quoteService.getQuotes(page)
-            if(result.body() != null) quotesLiveData.postValue(result.body())
+    fun getQuotes(page: Int) {
+        if (NetworkUtils.isInternetAvailable(applicationContext)) {
+            val observable: Observable<QuoteList> = quoteService.getQuotes(page)
+            observable.subscribeOn(Schedulers.io())
+                .repeatWhen { completed -> completed.delay(10, TimeUnit.SECONDS) }
+                .subscribe { quotesLiveData.postValue(it) }
         }
     }
 }
